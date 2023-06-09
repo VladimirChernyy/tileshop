@@ -23,6 +23,8 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Описание')
     pub_date = models.DateTimeField(auto_now_add=True,
                                     verbose_name='Дата добавления товара')
+    images = models.ImageField(upload_to='photo/%Y/%m/',
+                               verbose_name='Фото товара')
     create_at = models.DateTimeField(auto_created=True,
                                      verbose_name='Дата поступления')
     product_stock = models.BooleanField(default=True,

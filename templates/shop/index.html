@@ -10,7 +10,7 @@
             {% for category in categories %}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center">
-                        <a href="{ url 'category:category_products' }">
+                        <a href="{% url 'category:category_products' category_products.slug %}">
                         {% thumbnail category.images "350x350" crop="center" as im %}
                             <img class="card-img my-2" src="{{ im.url }}" alt="">
                         {% endthumbnail %}

@@ -14,10 +14,10 @@ def index(request):
     return render(request, template, context)
 
 
-def category_products(request, category):
-    print(request)
-    category = Category.objects.filter(slug=category)
-    products = category.products.select_related()
+def category_products(request, slug):
+    print(request.content_params)
+    category = Category.objects.filter(slug=slug)
+    products = category.products.all()
     template = 'shop/category.html'
     context = {
         'products': products,

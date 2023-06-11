@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block content %}
+    <br>
+    <div class="container">
+        <div class="row">
+            {% for category in categories %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card text-center">
+                        <a href="{ url 'category:category_products' }">
+                        {% thumbnail category.images "350x350" crop="center" as im %}
+                            <img class="card-img my-2" src="{{ im.url }}" alt="">
+                        {% endthumbnail %}
+                        </a>
+                        <p>{{ category.title }}</p>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=155, verbose_name='Наименование товара')),
                 ('description', models.TextField(verbose_name='Описание')),
                 ('pub_date', models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления товара')),
-                ('images', models.ImageField(upload_to='photo/%Y/%m/', verbose_name='Фото товара')),
+                ('images', models.ImageField(upload_to='image/%Y/%m/', verbose_name='Фото товара')),
                 ('product_stock', models.BooleanField(default=True, verbose_name='Товар в наличии')),
                 ('slug', models.SlugField(unique=True, verbose_name='URL')),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.category')),

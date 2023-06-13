@@ -14,8 +14,8 @@ def index(request):
     return render(request, template, context)
 
 
-def category_products(request, slug):
-    category = get_object_or_404(Category, slug=slug)
+def category_list(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
     products = category.products.select_related()
     template = 'shop/category_product.html'
     context = {

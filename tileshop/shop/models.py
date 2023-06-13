@@ -14,9 +14,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse('category', kwargs={'category_slug': self.slug})
-
     class Meta:
         ordering = ('id',)
         verbose_name = 'Категория'
@@ -38,6 +35,9 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('subcategory', kwargs={'subcategory_slug': self.slug})
+
     class Meta:
         ordering = ('title',)
         verbose_name = 'Подкатегория'
@@ -47,6 +47,7 @@ class SubCategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=155,
                             verbose_name='Наименование товара')
+    slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
     description = models.TextField(verbose_name='Описание')
     pub_date = models.DateTimeField(auto_now_add=True,
                                     verbose_name='Дата добавления товара')
@@ -61,10 +62,15 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
-                                    blank=True, null=True, verbose_name='Подкатегория')
+                                    blank=True, null=True,
+                                    related_name='products',
+                                    verbose_name='Подкатегория')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_slug': self.slug})
 
     class Meta:
         ordering = ('name',)

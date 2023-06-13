@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Category, Product
+from .models import Category, Product, SubCategory
 
 
 def index(request):
@@ -8,7 +8,6 @@ def index(request):
     template = 'shop/index.html'
     context = {
         'title': 'Магазин',
-        'body': 'Магазин инструмента',
         'categories': categories
     }
     return render(request, template, context)
@@ -16,13 +15,26 @@ def index(request):
 
 def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
-    products = category.products.select_related()
-    template = 'shop/category_product.html'
+    subcategory = category.subcategory.select_related()
+    if not subcategory:
+        products = category.products.select_related()
+        template = 'shop/category_list.html'
+        context = {
+            'title': category.slug,
+            'products': products,
+        }
+        return render(request, template, context)
+    subcategory = category.subcategory.select_related()
+    template = 'shop/index.html'
     context = {
-        'title': category.slug,
-        'products': products,
+        'title': 'Магазин',
+        'categories': subcategory,
     }
     return render(request, template, context)
+
+
+def product_list(request, product_slug):
+    pass
 
 
 def rewies(request):

@@ -16,7 +16,7 @@ def index(request):
 
 def category_products(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    products = category.products.all()
+    products = category.products.select_related()
     template = 'shop/category_product.html'
     context = {
         'title': category.slug,

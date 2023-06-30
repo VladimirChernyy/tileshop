@@ -5,10 +5,12 @@ from django.urls import path, include
 from . import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('shop.urls', namespace='shop')),
+    path(r'admin/', admin.site.urls),
+    path(r'auth/', include('django.contrib.auth.urls')),
+    path(r'cart/', include('cart.urls', namespace='cart')),
+    path(r'', include('shop.urls', namespace='shop')),
     # path('auth/', include('users.urls')),
-    path('auth/', include('django.contrib.auth.urls')),
+
 ]
 
 if settings.DEBUG:

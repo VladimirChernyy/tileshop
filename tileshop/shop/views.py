@@ -37,6 +37,6 @@ def product_list(request, product_slug):
     pass
 
 
-def rewies(request):
-    template = 'shop/rewies.html'
+def reviews(request):
+    template = 'shop/reviews.html'
     return render(request, template)

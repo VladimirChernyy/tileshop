@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'users.apps.UserConfig',
     'api.apps.ApiConfig',
+    'cart.apps.CartConfig',
     'sorl.thumbnail',
 ]
 
@@ -93,5 +94,7 @@ STATICFILE_DIR = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CART_SESSION_ID = 'cart'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

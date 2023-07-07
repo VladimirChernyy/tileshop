@@ -11,6 +11,9 @@ class Category(models.Model):
     images = models.ImageField(upload_to='image/categories/',
                                verbose_name='Фото категории')
 
+    def get_absolute_url(self):
+        return reverse('shop:category', kwargs={'category_slug': self.slug})
+
     def __str__(self):
         return self.title
 
@@ -35,9 +38,6 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse('subcategory', kwargs={'subcategory_slug': self.slug})
-
     class Meta:
         ordering = ('title',)
         verbose_name = 'Подкатегория'
@@ -58,7 +58,6 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена')
     product_stock = models.BooleanField(default=True,
                                         verbose_name='Товар в наличии')
-    slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
@@ -70,7 +69,7 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_slug': self.slug})
+        return reverse('shop:product', kwargs={'product_slug': self.slug})
 
     class Meta:
         ordering = ('name',)

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Category, Product, SubCategory
+from cart.forms import CartAddProductForm
+from shop.models import Category, Product
 
 
 def index(request):
@@ -33,8 +34,18 @@ def category_list(request, category_slug):
     return render(request, template, context)
 
 
-def product_list(request, product_slug):
-    pass
+def product_detail(request, product_slug):
+    product = get_object_or_404(Product,
+                                slug=product_slug,
+                                available=True)
+
+    cart_product_form = CartAddProductForm()
+    templates = 'cart/detail.html'
+    context = {
+        'product': product,
+        'cart_product_form': cart_product_form,
+    }
+    return render(request, templates, context)
 
 
 def reviews(request):

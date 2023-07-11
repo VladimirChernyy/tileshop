@@ -46,7 +46,8 @@ class SubCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=155,
-                            verbose_name='Наименование товара')
+                            verbose_name='Наименование товара',
+                            db_index=True)
     slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
     description = models.TextField(verbose_name='Описание')
     pub_date = models.DateTimeField(auto_now_add=True,
@@ -56,10 +57,11 @@ class Product(models.Model):
     create_at = models.DateTimeField(auto_created=True,
                                      verbose_name='Дата поступления')
     price = models.IntegerField(verbose_name='Цена')
-    product_stock = models.BooleanField(default=True,
-                                        verbose_name='Товар в наличии')
+    available = models.BooleanField(default=True,
+                                    verbose_name='Товар в наличии')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
+    stock = models.PositiveIntegerField()
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
                                     blank=True, null=True,
                                     related_name='products',
@@ -75,6 +77,7 @@ class Product(models.Model):
         ordering = ('name',)
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        index_together = (('id', 'slug'),)
 
 
 class Rewies(models.Model):

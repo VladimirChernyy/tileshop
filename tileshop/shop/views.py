@@ -23,6 +23,7 @@ def category_list(request, category_slug):
         context = {
             'title': category.slug,
             'products': products,
+            'cart_product_form': CartAddProductForm(),
         }
         return render(request, template, context)
     subcategory = category.subcategory.select_related()
@@ -34,8 +35,9 @@ def category_list(request, category_slug):
     return render(request, template, context)
 
 
-def product_detail(request, product_slug):
+def product_detail(request, pk, product_slug):
     product = get_object_or_404(Product,
+                                id=pk,
                                 slug=product_slug,
                                 available=True)
 

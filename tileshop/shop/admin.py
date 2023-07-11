@@ -19,12 +19,12 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price', 'images',
-                    'create_at', 'product_stock')
+                    'create_at', 'available')
     list_display_links = ('id', 'name')
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name', 'description', 'price')
-    list_editable = ('product_stock',)
-    list_filter = ('product_stock', 'create_at', 'price')
+    list_editable = ('available',)
+    list_filter = ('available', 'create_at', 'price')
 
 
 admin.site.register(Category, CategoryAdmin)

@@ -10,7 +10,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center shadow p-3 mb-5 bg-white rounded">
                         <a href="{{ product.get_absolute_url }}">
-                        {% thumbnail product.images "350x350" crop="center" as im %}
+                        {% thumbnail product.images "350x350" crop="center" upscale=True as im %}
                             <img class="card-img my-2 bg-white" src="{{ im.url }}" alt="">
                         {% endthumbnail %}
                         </a>
@@ -18,7 +18,7 @@
                         <hr>
                         <p>{{ product.description|truncatewords:15 }}</p>
                         <h5>{{ product.price }} р.</h5>
-                        <form action="{{ product.get_absolute_url }}" method="post">
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
                            {{ cart_product_form }}
                            {% csrf_token %}
                          <button class="btn btn-success " data-toggle="button">В корзину</button>

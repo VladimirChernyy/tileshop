@@ -56,9 +56,8 @@ class Product(models.Model):
     create_at = models.DateTimeField(auto_created=True,
                                      verbose_name='Дата поступления')
     price = models.IntegerField(verbose_name='Цена')
-    product_stock = models.BooleanField(default=True,
-                                        verbose_name='Товар в наличии')
-    slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
+    available = models.BooleanField(default=True,
+                                    verbose_name='Товар в наличии')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
@@ -78,7 +77,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
 
-class Rewies(models.Model):
+class Reviews(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name='rewies',
                                verbose_name='Автор отзыва')

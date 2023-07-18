@@ -9,7 +9,7 @@
             {% for category in categories %}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                        <a href="{% url 'shop:category_list' category.slug %}">
+                        <a href="{{ category.get_absolute_url }}">
                         {% thumbnail category.images "350x350" crop="center" as im %}
                             <img class="card-img my-2" src="{{ im.url }}" alt="">
                         {% endthumbnail %}
@@ -22,4 +22,3 @@
         </div>
     </div>
 {% endblock %}
-

@@ -14,6 +14,9 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('shop:category', kwargs={'category_slug': self.slug})
+
     class Meta:
         ordering = ('id',)
         verbose_name = 'Категория'
@@ -34,9 +37,6 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse('subcategory', kwargs={'subcategory_slug': self.slug})
 
     class Meta:
         ordering = ('title',)
@@ -69,12 +69,13 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_slug': self.slug})
+        return reverse('shop:product', kwargs={'product_slug': self.slug})
 
     class Meta:
         ordering = ('name',)
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
+        index_together = (('id', 'slug'),)
 
 
 class Reviews(models.Model):

@@ -9,8 +9,8 @@
             {% for product in products %}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center shadow p-3 mb-5 bg-white rounded">
-                        <a href="{{ category.get_absolute_url }}">
-                        {% thumbnail product.images "350x350" crop="center" as im %}
+                        <a href="{{ product.get_absolute_url }}">
+	                      {% thumbnail product.images "350x350" crop="center" upscale=True as im %}
                             <img class="card-img my-2 bg-white" src="{{ im.url }}" alt="">
                         {% endthumbnail %}
                         </a>
@@ -18,7 +18,11 @@
                         <hr>
                         <p>{{ product.description|truncatewords:15 }}</p>
                         <h5>{{ product.price }} р.</h5>
-                        <button type="button" class="btn btn-success " data-toggle="button" aria-pressed="false" style="display: block; margin-left: auto;">В карзину</button>
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            {% csrf_token %}
+                            {{ cart_product_form }}
+                         <button class="btn btn-success " data-toggle="button">В корзину</button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}

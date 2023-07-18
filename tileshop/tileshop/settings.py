@@ -7,6 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = f'{SECRET_KEY}'
 
 DEBUG = True
+THUMBNAIL_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     'users.apps.UserConfig',
     'api.apps.ApiConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
     'sorl.thumbnail',
 ]
 
@@ -48,6 +50,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -90,7 +93,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILE_DIR = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

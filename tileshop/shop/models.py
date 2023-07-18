@@ -55,7 +55,8 @@ class Product(models.Model):
                                verbose_name='Фото товара')
     create_at = models.DateTimeField(auto_created=True,
                                      verbose_name='Дата поступления')
-    price = models.IntegerField(verbose_name='Цена')
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2, verbose_name='Цена')
     available = models.BooleanField(default=True,
                                     verbose_name='Товар в наличии')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,

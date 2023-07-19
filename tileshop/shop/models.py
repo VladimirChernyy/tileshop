@@ -61,6 +61,7 @@ class Product(models.Model):
                                     verbose_name='Товар в наличии')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
+    stock = models.PositiveIntegerField(default=1, verbose_name='Количество')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
                                     blank=True, null=True,
                                     related_name='products',

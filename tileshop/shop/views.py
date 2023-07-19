@@ -17,13 +17,14 @@ def index(request):
 def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     subcategory = category.subcategory.select_related()
+    cart_product_form = CartAddProductForm()
     if not subcategory:
         products = category.products.select_related()
         template = 'shop/category_list.html'
         context = {
             'title': category.slug,
             'products': products,
-            'cart_product_form': CartAddProductForm(),
+            'cart_product_form': cart_product_form,
         }
         return render(request, template, context)
     subcategory = category.subcategory.select_related()
@@ -42,7 +43,7 @@ def product_detail(request, pk, product_slug):
                                 available=True)
 
     cart_product_form = CartAddProductForm()
-    templates = 'cart/detail.html'
+    templates = 'cart/create.html'
     context = {
         'product': product,
         'cart_product_form': cart_product_form,

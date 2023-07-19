@@ -1,17 +1,22 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 from shop.models import Product
 
 
 class Order(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField()
-    address = models.CharField(max_length=250)
-    city = models.CharField(max_length=180)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    paid = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=50, verbose_name='Имя')
+    last_name = models.CharField(max_length=50, verbose_name='Ффмилия')
+    email = models.EmailField(verbose_name='Электронная почта')
+    address = models.CharField(max_length=250, verbose_name='Адрес')
+    city = models.CharField(max_length=180, verbose_name='Город')
+    phone_number = PhoneNumberField(region='RU', verbose_name='Номер телефона',
+                                    help_text='+7 (___) ___ - __ - __')
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name='Заказ создан')
+    updated = models.DateTimeField(auto_now=True,
+                                   verbose_name='Заказ обновлен')
+    paid = models.BooleanField(default=False, verbose_name='Оплата')
 
     class Meta:
         ordering = ('-created',)

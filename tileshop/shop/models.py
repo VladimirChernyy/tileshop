@@ -55,11 +55,13 @@ class Product(models.Model):
                                verbose_name='Фото товара')
     create_at = models.DateTimeField(auto_created=True,
                                      verbose_name='Дата поступления')
-    price = models.IntegerField(verbose_name='Цена')
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2, verbose_name='Цена')
     available = models.BooleanField(default=True,
                                     verbose_name='Товар в наличии')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  related_name='products')
+    stock = models.PositiveIntegerField(default=1, verbose_name='Количество')
     subcategory = models.ForeignKey(SubCategory, on_delete=models.SET_NULL,
                                     blank=True, null=True,
                                     related_name='products',
@@ -70,6 +72,9 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product', kwargs={'product_slug': self.slug})
+
+    def get_return_price(self):
+        return f'{self.price}'
 
     class Meta:
         ordering = ('name',)

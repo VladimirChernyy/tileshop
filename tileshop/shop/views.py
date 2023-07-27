@@ -36,15 +36,15 @@ def category_list(request, category_slug):
     return render(request, template, context)
 
 
-def product_detail(request, pk, product_slug):
+def product_detail(request, product_slug):
     product = get_object_or_404(Product,
-                                id=pk,
                                 slug=product_slug,
                                 available=True)
 
     cart_product_form = CartAddProductForm()
-    templates = 'cart/create.html'
+    templates = 'shop/product_detail.html'
     context = {
+        'title': product.name,
         'product': product,
         'cart_product_form': cart_product_form,
     }

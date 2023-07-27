@@ -73,6 +73,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('shop:product', kwargs={'product_slug': self.slug})
 
+    def get_return_price(self):
+        return f'{self.price}'
+
     class Meta:
         ordering = ('name',)
         verbose_name = 'Продукт'

@@ -1,6 +1,7 @@
 import os
 
-from config import DB_PASS, DB_HOST, DB_USER, DB_PORT, DB_NAME, SECRET_KEY
+from config import (DB_PASS, DB_HOST, DB_USER, DB_PORT, DB_NAME, SECRET_KEY,
+                    STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +24,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
     'sorl.thumbnail',
     'phonenumber_field',
 ]
@@ -101,3 +103,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CART_SESSION_ID = 'cart'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_SECRET_KEY = STRIPE_SECRET_KEY
+STRIPE_PUBLIC_KEY = STRIPE_PUBLIC_KEY

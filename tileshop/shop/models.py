@@ -1,5 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
+
 from django.urls import reverse
 
 User = get_user_model()
@@ -47,6 +48,7 @@ class SubCategory(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=155,
                             verbose_name='Наименование товара')
+    stripe_id = models.CharField()
     slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
     description = models.TextField(verbose_name='Описание')
     pub_date = models.DateTimeField(auto_now_add=True,
@@ -83,23 +85,13 @@ class Product(models.Model):
         index_together = (('id', 'slug'),)
 
 
-class Reviews(models.Model):
+class Comment(models.Model):
+    product = models.ForeignKey(Product, blank=True, null=True,
+                                on_delete=models.CASCADE,
+                                related_name='comment')
+    text = models.TextField(verbose_name='Текст',
+                            help_text='Напишите коментарий')
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='rewies',
-                               verbose_name='Автор отзыва')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE,
-                                related_name='rewies',
-                                verbose_name='Товар')
-    description = models.TextField(verbose_name='Описание',
-                                   help_text='Напишите отзыв')
-    pub_date = models.DateTimeField(auto_now_add=True,
-                                    verbose_name='Дата публикации')
-    slug = models.SlugField(unique=True, db_index=True, verbose_name='URL')
-
-    def __str__(self):
-        return self.author, self.description
-
-    class Meta:
-        ordering = ('-pub_date',)
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'Отзывы'
+                               related_name='comment',
+                               verbose_name='Автор')
+    created = models.DateTimeField(auto_now_add=True)

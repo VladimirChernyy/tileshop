@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, Reviews, SubCategory
+from .models import Category, Product, SubCategory
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -29,4 +29,4 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Reviews)
+

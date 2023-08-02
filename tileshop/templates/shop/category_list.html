@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load ratings %}
 {% block title %}
 	{{ title }}
 {% endblock %}
@@ -15,6 +16,7 @@
 							{% endthumbnail %}
 						</a>
 						<h6>{{ product.name }}</h6>
+							{% ratings product icon_height=15 icon_width=15 %}
 						<h5>{{ product.price }} р.</h5>
 						<form action="{% url "cart:cart_add" product.id %}" method="post">
 							{% csrf_token %}

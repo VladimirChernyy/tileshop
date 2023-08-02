@@ -1,7 +1,7 @@
 import os
 
 from config import (DB_PASS, DB_HOST, DB_USER, DB_PORT, DB_NAME, SECRET_KEY,
-                    STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY )
+                    STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'sorl.thumbnail',
     'phonenumber_field',
+    'star_ratings',
 ]
 
 MIDDLEWARE = [

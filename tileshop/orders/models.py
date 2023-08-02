@@ -6,7 +6,7 @@ from shop.models import Product
 
 class Order(models.Model):
     first_name = models.CharField(max_length=50, verbose_name='Имя')
-    last_name = models.CharField(max_length=50, verbose_name='Ффмилия')
+    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     email = models.EmailField(verbose_name='Электронная почта')
     address = models.CharField(max_length=250, verbose_name='Адрес')
     city = models.CharField(max_length=180, verbose_name='Город')

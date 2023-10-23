@@ -1,16 +1,19 @@
 import os
 
-from config import (DB_PASS, DB_HOST, DB_USER, DB_PORT, DB_NAME, SECRET_KEY,
-                    STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY)
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = f'{SECRET_KEY}'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = True
-THUMBNAIL_DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') in ('True', '1', 't')
 
-ALLOWED_HOSTS = ['*']
+THUMBNAIL_DEBUG = os.getenv('THUMBNAIL_DEBUG', 'False') in ('True', '1', 't')
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,8 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
-    'users.apps.UserConfig',
-    'api.apps.ApiConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
@@ -65,11 +66,11 @@ WSGI_APPLICATION = 'tileshop.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": f"{DB_NAME}",
-        "USER": f"{DB_USER}",
-        "PASSWORD": f"{DB_PASS}",
-        "HOST": f"{DB_HOST}",
-        "PORT": f"{DB_PORT}",
+        "NAME": os.environ.get('DB_NAME', 'django'),
+        "USER": os.environ.get('DB_USER', 'django_user'),
+        "PASSWORD": os.environ.get('DB_PASS', 'django_pass'),
+        "HOST":  os.environ.get('DB_HOST', 'db'),
+        "PORT": os.environ.get('DB_PORT', 5432),
     }
 }
 
@@ -105,5 +106,5 @@ CART_SESSION_ID = 'cart'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_SECRET_KEY = STRIPE_SECRET_KEY
-STRIPE_PUBLIC_KEY = STRIPE_PUBLIC_KEY
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')

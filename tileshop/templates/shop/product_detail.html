@@ -9,7 +9,7 @@
 			<div class="col">
 				<div class="container pt-8 h-100">
 					<div class="card">
-						<div class="card text-center shadow p-4 bg-white rounded">
+						<div class="card shadow p-4 bg-white rounded">
 							<div class="row align-items-center">
 								<div class="col-lg-6">
 									{% thumbnail product.images "350x350" crop="center" upscale=True as im %}
@@ -33,7 +33,23 @@
 									</form>
 								</div>
 							</div>
+						<div class="card">
+									<div class="card-header">
+										Оставьте отзыв
+									</div>
+									<div class="card-body">
+										<form action="{% url 'shop:create_review' product.id %}"
+										method="post">
+											{% csrf_token %}
+											{{ create_review_form.as_p }}
+											<button type="submit" class="btn btn-primary">
+												Отправить
+											</button>
+										</form>
+									</div>
+								</div>
 						</div>
+
 					</div>
 				</div>
 			</div>

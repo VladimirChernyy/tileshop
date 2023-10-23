@@ -1,10 +1,17 @@
 from django import forms
 
-PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+from tileshop.constans import CartLimit, CartValidate
 
 
 class CartAddProductForm(forms.Form):
-    quantity = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES,
-                                      coerce=int)
-    update = forms.BooleanField(required=False, initial=False,
-                                widget=forms.HiddenInput)
+    quantity = forms.IntegerField(
+        initial=CartLimit.QUANTITY_INITIAL.value,
+        min_value=CartValidate.QUANTITY_MIN_VALUE.value,
+        max_value=CartValidate.QUANTITY_MAX_VALUE.value,
+        label='Кол'
+    )
+    update = forms.BooleanField(
+        required=False,
+        initial=False,
+        widget=forms.HiddenInput
+    )

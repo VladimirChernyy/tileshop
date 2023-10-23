@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+	{{ title }}
+{% endblock %}
+{% block content %}
+	<section class="h-100 h-custom p-4" style="background-color: #d9d9d9;">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col">
+				<div class="container pt-8 h-100">
+					<div class="card">
+						<div class="card shadow p-4 bg-white rounded">
+							<div class="row align-items-center">
+								<div class="col-lg-6">
+									{% thumbnail product.images "350x350" crop="center" upscale=True as im %}
+										<img class="card-img my-2 bg-white" src="{{ im.url }}"
+										     alt="">
+									{% endthumbnail %}
+								</div>
+								<div class="col-lg-6">
+									<h1>{{ product.name }}</h1>
+									<hr>
+									<p>{{ product.description }}</p>
+
+									<h5>{{ product.price }} р.</h5>
+									<form action="{% url "cart:cart_add" product.id %}"
+									      method="post">
+										{% csrf_token %}
+										{{ cart_product_form }}
+										<button class="btn btn-success " data-toggle="button">
+											В корзину
+										</button>
+									</form>
+								</div>
+							</div>
+						<div class="card">
+									<div class="card-header">
+										Оставьте отзыв
+									</div>
+									<div class="card-body">
+										<form action="{% url 'shop:create_review' product.id %}"
+										method="post">
+											{% csrf_token %}
+											{{ create_review_form.as_p }}
+											<button type="submit" class="btn btn-primary">
+												Отправить
+											</button>
+										</form>
+									</div>
+								</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+{% endblock %}

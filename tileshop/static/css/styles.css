@@ -1,0 +1,9 @@
+.my-element {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .my-element {
+    font-size: 14px;
+  }
+}
